@@ -23,7 +23,8 @@ class SIMULATION:
         for n in range(c.ITERATIONS):
             p.stepSimulation()
             self.world.ROBOT.sense(n)
-            self.world.ROBOT.act(n)
+            self.world.ROBOT.think()
+            self.world.ROBOT.act()
             t.sleep(c.DURATION)
 
             

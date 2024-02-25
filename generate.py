@@ -12,8 +12,7 @@ def Create_World():
     pyrosim.Send_Cube(name="Box", pos=[x,y,z] , size=[length,width,height])
     pyrosim.End()
 
-# TODO Joints part 34
-def Create_Robot():
+def generate_body():
 
     pyrosim.Start_URDF("body.urdf")
 
@@ -30,6 +29,24 @@ def Create_Robot():
     pyrosim.End()
 
 
+def generate_brain():
+
+    pyrosim.Start_NeuralNetwork("brain.nndf")
+
+    pyrosim.Send_Sensor_Neuron(name = 0 , linkName = "Torso")
+
+    pyrosim.Send_Sensor_Neuron(name = 1 , linkName = "BackLeg")
+
+    pyrosim.Send_Sensor_Neuron(name = 2 , linkName = "FrontLeg")
+
+    pyrosim.Send_Motor_Neuron( name = 3 , jointName = 'Torso_BackLeg')
+
+    pyrosim.Send_Motor_Neuron( name = 4 , jointName = 'Torso_FrontLeg')
+
+    pyrosim.End()
+
 Create_World()
 
-Create_Robot()
+generate_body()
+
+generate_brain()
