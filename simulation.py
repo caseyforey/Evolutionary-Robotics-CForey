@@ -25,7 +25,6 @@ class SIMULATION:
             self.world.ROBOT.sense(n)
             self.world.ROBOT.think()
             self.world.ROBOT.act()
-            t.sleep(c.DURATION)
 
             
     def __del__(self):
