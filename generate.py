@@ -1,5 +1,5 @@
 import pyrosim.pyrosim as pyrosim
-
+import random as rand
 
 def Create_World():
     pyrosim.Start_SDF("world.sdf")
@@ -42,10 +42,10 @@ def generate_brain():
     pyrosim.Send_Motor_Neuron( name = 3 , jointName = 'Torso_BackLeg')
 
     pyrosim.Send_Motor_Neuron( name = 4 , jointName = 'Torso_FrontLeg')
-
-    pyrosim.Send_Synapse( sourceNeuronName = 2 , targetNeuronName = 4 , weight = -1 )
-
-    pyrosim.Send_Synapse( sourceNeuronName = 0 , targetNeuronName = 4 , weight = -1 )
+    
+    for sensor in range(0,4):
+        for motor in range(4,6):
+            pyrosim.Send_Synapse( sourceNeuronName = sensor , targetNeuronName = motor , weight = rand.uniform(-1, 1) )
 
     pyrosim.End()
 
