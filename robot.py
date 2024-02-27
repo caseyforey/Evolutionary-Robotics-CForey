@@ -39,10 +39,8 @@ class ROBOT:
 
     def get_fitness(self, id):
         xCoordinateOfLinkZero = p.getLinkState(self.robotId,0)[0][0]
-        f = open(f"data/tmp{id}.txt", "w")
+        f = open(f"tmp{id}.txt", "w")
         f.write(str(xCoordinateOfLinkZero))
         f.close()
-        os.rename(f'data/tmp{id}.txt', f'data/fitness{id}.txt')
-
-        exit()
+        os.rename(f'tmp{id}.txt', f'fitness{id}.txt')
 

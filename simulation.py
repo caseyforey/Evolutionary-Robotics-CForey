@@ -31,7 +31,7 @@ class SIMULATION:
             self.world.ROBOT.think()
             self.world.ROBOT.act()
             if self.mode == 'GUI':
-                t.sleep(1/10000)
+                t.sleep(1/1000)
     
 
 

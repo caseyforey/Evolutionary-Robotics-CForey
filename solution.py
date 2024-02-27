@@ -7,12 +7,7 @@ class SOLUTION():
     def __init__(self, id) :
         self.weights = (np.random.rand(3,2) * 2) -1
         self.myID = id
-
-    def evaluate(self, mode):
-        self.create_world()
-        self.create_body()
-        self.create_brain()
-        os.system(f"start /B python3 simulate.py {mode} {self.myID}")
+    
     def start_simulation(self, mode):
         self.create_world()
         self.create_body()
@@ -20,11 +15,11 @@ class SOLUTION():
         os.system(f"start /B python3 simulate.py {mode} {self.myID}")
 
     def wait_for_simulation(self):
-        while not os.path.exists(f"data/fitness{self.myID}.txt"):
+        while not os.path.exists(f"fitness{self.myID}.txt"):
             time.sleep(0.01)
-        f = open(f"data/fitness{self.myID}.txt", "r")
+        print(self.myID)
+        f = open(f"fitness{self.myID}.txt", "r")
         self.fitness = float(f.read())
-        print(self.fitness)
         f.close()
         os.system(f'del fitness{self.myID}.txt')
 
@@ -37,6 +32,9 @@ class SOLUTION():
     def set_id(self, id):
         self.myID = id
 
+
+
+### CREATE METHODS ###
     def create_world(self):
         pyrosim.Start_SDF("world.sdf")
 
