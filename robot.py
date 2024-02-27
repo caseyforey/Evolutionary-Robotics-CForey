@@ -17,11 +17,9 @@ class ROBOT:
     def sense(self, time):
         for sensor in self.sensors:
             self.sensors[sensor].get_value(time)
-    
-    # TODO: Module 7 part 18
+
     def think(self):
         self.nn.Update()
-        self.nn.Print()
 
 
     def prepare_to_act(self,joints):
@@ -35,4 +33,12 @@ class ROBOT:
                 jointName = self.nn.Get_Motor_Neurons_Joint(neuronName)
                 desiredAngle = self.nn.Get_Value_Of(neuronName)
                 self.motors[jointName].set_value(desiredAngle,self.robotId)
+
+    def get_fitness(self):
+        xCoordinateOfLinkZero = p.getLinkState(self.robotId,0)[0][0]
+        f = open("data/fitness.txt", "w")
+        f.write(str(xCoordinateOfLinkZero))
+        f.close()
+
+        exit()
 

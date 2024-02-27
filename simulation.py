@@ -6,9 +6,13 @@ import constants as c
 import time as t
 class SIMULATION:
 
-    def __init__(self):
-        # Connect to client
-        self.physicsClient = p.connect(p.GUI)
+    def __init__(self, mode):
+        # Connect to client in requested mode
+        self.mode = mode
+        if self.mode == 'GUI':
+            self.physicsClient = p.connect(p.GUI)
+        else:
+            self.physicsClient = p.connect(p.DIRECT)
         p.configureDebugVisualizer(p.COV_ENABLE_GUI,0)
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         self.world = WORLD.WORLD()
@@ -25,7 +29,13 @@ class SIMULATION:
             self.world.ROBOT.sense(n)
             self.world.ROBOT.think()
             self.world.ROBOT.act()
+            if self.mode == 'GUI':
+                t.sleep(1/10000)
+    
 
-            
+
+    def get_fitness(self):
+        self.world.ROBOT.get_fitness()
+    
     def __del__(self):
         p.disconnect()
