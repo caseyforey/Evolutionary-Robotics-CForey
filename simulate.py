@@ -8,6 +8,7 @@ from simulation import SIMULATION
 import sys
 
 direct_or_gui = sys.argv[1]
-simulation = SIMULATION(direct_or_gui)
+brain_file = sys.argv[2]
+simulation = SIMULATION(direct_or_gui, brain_file)
 simulation.run()
 simulation.get_fitness()

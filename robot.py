@@ -2,12 +2,15 @@ import motor as MOTOR
 import sensor as SENSOR
 import pybullet as p
 from pyrosim.neuralNetwork import NEURAL_NETWORK
+import os
 
 class ROBOT:
-    def __init__(self):
+    def __init__(self,file_id):
         # Create robot
         self.robotId = p.loadURDF("body.urdf")
-        self.nn = NEURAL_NETWORK("brain.nndf")
+        self.nn = NEURAL_NETWORK(f"brain{file_id}.nndf")
+        os.system(f"del brain{file_id}.nndf")
+
 
     def prepare_to_sense(self,links):
         self.sensors = {}
@@ -34,11 +37,12 @@ class ROBOT:
                 desiredAngle = self.nn.Get_Value_Of(neuronName)
                 self.motors[jointName].set_value(desiredAngle,self.robotId)
 
-    def get_fitness(self):
+    def get_fitness(self, id):
         xCoordinateOfLinkZero = p.getLinkState(self.robotId,0)[0][0]
-        f = open("data/fitness.txt", "w")
+        f = open(f"data/tmp{id}.txt", "w")
         f.write(str(xCoordinateOfLinkZero))
         f.close()
+        os.rename(f'data/tmp{id}.txt', f'data/fitness{id}.txt')
 
         exit()
 

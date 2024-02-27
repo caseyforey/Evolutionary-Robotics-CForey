@@ -6,16 +6,17 @@ import constants as c
 import time as t
 class SIMULATION:
 
-    def __init__(self, mode):
+    def __init__(self, mode, file_id):
         # Connect to client in requested mode
         self.mode = mode
+        self.id = file_id
         if self.mode == 'GUI':
             self.physicsClient = p.connect(p.GUI)
         else:
             self.physicsClient = p.connect(p.DIRECT)
         p.configureDebugVisualizer(p.COV_ENABLE_GUI,0)
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
-        self.world = WORLD.WORLD()
+        self.world = WORLD.WORLD(file_id)
         # Set gravity
         p.setGravity(0,0,c.GRAVITY_ACCELERATION)
         # Simulate the robot
@@ -35,7 +36,7 @@ class SIMULATION:
 
 
     def get_fitness(self):
-        self.world.ROBOT.get_fitness()
+        self.world.ROBOT.get_fitness(self.id)
     
     def __del__(self):
         p.disconnect()
